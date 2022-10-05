@@ -3,38 +3,34 @@ import ChargeContainerView from '../views/ChargeContainerView';
 import PurchaseContainerView from '../views/PurchaseContainerView';
 import NotFoundView from '../views/NotFoundView';
 
-type PageKey = 'products' | 'charge' | 'purchase' | 'error';
+export type Path = '/products' | '/charge' | '/purchase' | '/error';
 
-type PageView =
+export type PageView =
   | typeof ProductContainerView
   | typeof ChargeContainerView
   | typeof PurchaseContainerView
   | typeof NotFoundView;
 
-interface Page {
-  path: string;
+type Page = {
+  path: Path;
   view: PageView;
-}
+};
 
-export const PAGE: Record<PageKey, Page> = {
-  products: {
+export const PAGES: Readonly<Page[]> = [
+  {
     path: '/products',
     view: ProductContainerView,
   },
-  charge: {
+  {
     path: '/charge',
     view: ChargeContainerView,
   },
-  purchase: {
+  {
     path: '/purchase',
     view: PurchaseContainerView,
   },
-  error: {
+  {
     path: '/error',
     view: NotFoundView,
   },
-} as const;
-
-export const PageList = Object.values(PAGE);
-export type PageType = typeof PAGE[keyof typeof PAGE];
-export type PathType = typeof PAGE[keyof typeof PAGE]['path'];
+];
