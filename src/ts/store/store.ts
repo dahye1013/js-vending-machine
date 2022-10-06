@@ -20,12 +20,12 @@ export default class implements StoreInterface {
     this.state = params.state;
     this.status = 'resting';
 
-    const self = this;
+    const self = Object.assign({}, this);
 
     self.state = new Proxy(this.state || {}, {
       set(state, key: keyof State, value) {
         if (self.status !== 'mutation') {
-          console.warn('Status is not \'mutation\'. State can be modified only \'mutation\' status.');
+          console.warn('Status is not `mutation`. State can be modified only `mutation` status.');
           return false;
         }
 
@@ -39,7 +39,7 @@ export default class implements StoreInterface {
   }
 
   dispatch = <T>(actionKey: keyof typeof Actions, payload?: T): unknown => {
-    const self = this;
+    const self = Object.assign({}, this);
 
     if (typeof self.actions[actionKey] !== 'function') {
       throw new Error(`${actionKey} doesn't exist`);
@@ -51,7 +51,7 @@ export default class implements StoreInterface {
   };
 
   commit = <T>(mutationKey: keyof typeof Mutations, payload?: T) => {
-    const self = this;
+    const self = Object.assign({}, this);
 
     if (typeof self.mutations[mutationKey] !== 'function') {
       throw new Error(`${mutationKey} doesn't exist`);
