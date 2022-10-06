@@ -2,7 +2,7 @@ import AbstractView from './abstractView';
 
 class NotFoundView extends AbstractView {
   override setEvent(): never {
-    throw new Error("NotFoundView doesn't' need event.");
+    throw new Error('NotFoundView doesn`t need event.');
   }
 
   private errorMessage = '🚨 Not Found! 🚨';
